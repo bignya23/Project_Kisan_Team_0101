@@ -12,7 +12,9 @@
     # pkgs.nodePackages.nodemon
   ];
   # Sets environment variables in the workspace
-  env = {};
+  env = {
+    GOOGLE_AUTH_CREDENTIALS = "//home//user//t0101projectkisan//backend//kisan_agent//kisan-466906-575fadd46b5c.json"; # Replace with the actual path
+  };
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
