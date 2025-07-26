@@ -5,7 +5,6 @@ Inputs:
 
 - Disease and crop name : {disease_name}
 
-
 Return a this resposne format (e.g):
 
 crop_name: Name of the crop, e.g., 'Tomato'
@@ -93,4 +92,5 @@ Guidelines:
 - Ensure the response is clear, easy to understand, and actionable for farmers and agricultural professionals.
 - Return in a good formatted format in a way that farmer can understand. Don't output in json format.
 - Remove Citations no from the final output.
+- Reply in a manner that the farmer can easily understand. 
 """

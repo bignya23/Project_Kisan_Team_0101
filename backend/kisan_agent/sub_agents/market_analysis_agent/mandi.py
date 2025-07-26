@@ -1,50 +1,53 @@
+# import requests
+# i=0
+# print(f'ok {i}')
+# i+=1
+# # API endpoint and parameters
+# url = "https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070"
+# params = {
+#     "api-key": "579b464db66ec23bdd000001de5b9efe20fe44f273570082d48519b7",
+#     "format": "json",  # use 'json' for easy parsing
+#     "limit": 1       # number of records to fetch, change as needed
+# }
+# print(f'ok {i}')
+# i+=1
 
+# # Send GET request
+# response = requests.get(url, params=params)
+# print(f'ok {i}')
+# i+=1
+
+# # Check response status
+# if response.status_code == 200:
+#     print(f'ok {i}')
+#     i+=1
+
+#     data = response.json()
+#     print(f'ok {i}')
+#     i+=1
+
+#     # Print full data (or handle as per need)
+#     print("Total records fetched:", len(data.get("records", [])))
+#     print(f'ok {i}')
+#     i+=1
+
+#     for record in data["records"]:
+#         print(
+#             f"State: {record['state']}, District: {record['district']}, Market: {record['market']}, "
+#             f"Commodity: {record['commodity']}, Variety: {record['variety']}, Grade: {record['grade']}, "
+#             f"Arrival Date: {record['arrival_date']}, Min Price: {record['min_price']}, "
+#             f"Max Price: {record['max_price']}, Modal Price: {record['modal_price']}"
+#         )
+# else:
+#     print("Error:", response.status_code,response.text)
+    
+    
 import requests
-
-# ---------------- CONFIG ----------------
-url = "https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070"
-api_key = "579b464db66ec23bdd000001de5b9efe20fe44f273570082d48519b7"
-TARGET_STATE = "Uttar Pradesh"
-limit = 100
-# ----------------------------------------
-
-def fetch_mandi_data(state: str = TARGET_STATE):
-    offset = 0
-    all_records = []
-
-    while True:
-        params = {
-            "api-key": api_key,
-            "format": "json",
-            "limit": limit,
-            "offset": offset,
-            "filters[state]": state
-        }
-
-        response = requests.get(url, params=params)
-
-        if response.status_code == 200:
-            data = response.json()
-            records = data.get("records", [])
-
-            if not records:
-                break
-
-            all_records.extend(records)
-
-            if len(records) < limit:
-                break
-
-            offset += limit
-        else:
-            print(f"Error fetching data for {state}: {response.status_code}")
-            break
-
-    return all_records
-
-if __name__ == '__main__':
-    records = fetch_mandi_data()
-    if records:
-        print(f"\n✅ Prices in {TARGET_STATE} ({len(records)} records):")
-        for r in records:
-            print(f"{r['commodity']} ({r['variety']}): ₹{r['min_price']} - ₹{r['max_price']} (Modal: ₹{r['modal_price']}) | Market: {r['market']}, District: {r['district']}")
+try:
+    response = requests.get("https://www.google.com", timeout=5) # Add a timeout for quicker feedback
+    if response.status_code == 200:
+        print("Successfully connected to Google!")
+    else:
+        print(f"Failed to connect to Google: {response.status_code}")
+except requests.exceptions.RequestException as e:
+    print(f"Could not connect to Google: {e}")

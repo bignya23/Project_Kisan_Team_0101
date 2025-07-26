@@ -20,7 +20,6 @@ disease_agent = LlmAgent(
         "You are an agricultural assistant. "
         "Only return the disease name and also the name of the plant in short, e.g., 'Powdery Mildew'."
     ),
-    # tools=[crop_disease_tool],
     output_key="disease_name"
 )
 
@@ -35,8 +34,8 @@ remedies_agent = LlmAgent(
     output_key="remedies"
 )
 
-# 4. Main Sequential Agent
-main_agent = SequentialAgent(
+# Main Sequential Agent
+main_agent_1 = SequentialAgent(
     name="final_crop_disease_assistant",
     sub_agents=[disease_agent, remedies_agent],
     description=(
@@ -46,5 +45,8 @@ main_agent = SequentialAgent(
 )
 
 
-root_agent = main_agent
+
+
+
+
 
