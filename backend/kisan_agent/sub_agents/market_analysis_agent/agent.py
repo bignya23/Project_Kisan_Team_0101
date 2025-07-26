@@ -2,7 +2,7 @@ from datetime import datetime
 from google.adk.agents import Agent, SequentialAgent, ParallelAgent, LlmAgent
 from google.adk.tools import google_search
 from .holiday import get_holidays_list
-from .mandi import fetch_mandi_data
+# from .mandi import fetch_mandi_data
 from dotenv import load_dotenv
 import os
 

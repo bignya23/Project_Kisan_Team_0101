@@ -14,6 +14,8 @@
   # Sets environment variables in the workspace
   env = {
     GOOGLE_AUTH_CREDENTIALS = "//home//user//t0101projectkisan//backend//kisan_agent//kisan-466906-575fadd46b5c.json"; # Replace with the actual path
+    URL = "https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070";
+    API = "579b464db66ec23bdd000001de5b9efe20fe44f273570082d48519b7";
   };
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
