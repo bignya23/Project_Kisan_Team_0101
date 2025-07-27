@@ -1,42 +1,40 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from bs4 import BeautifulSoup
-import time
+import pandas as pd
 
-# ✅ Path to your ChromeDriver
-CHROME_DRIVER_PATH = "/path/to/chromedriver"  # Replace this
+def wpi_tool(item_name: str):
+    """
+    Reads the local WPI CSV file and returns the latest WPI index 
+    and a basic prediction (Uptrend / Downtrend).
+    """
+    try:
+        df = pd.read_csv("/home/user/t0101projectkisan/backend/kisan_agent/sub_agents/market_analysis_agent/wholesale_price_index.csv")
+        filtered = df[df["Item Name"].str.contains(item_name, case=False, na=False)]
+        if filtered.empty:
+            return f"No WPI data found for {item_name}."
 
-# ✅ Setup Selenium
-service = Service(CHROME_DRIVER_PATH)
-options = webdriver.ChromeOptions()
-options.add_argument("--headless")  # run without opening browser
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
+        filtered = filtered.copy()  # avoid SettingWithCopyWarning
+        filtered.loc[:, "YearMonth"] = pd.to_datetime(
+            filtered["Year"].astype(str) + "-" + filtered["Month"],
+            format="%Y-%B"
+        )
 
-driver = webdriver.Chrome(service=service, options=options)
+        filtered = filtered.sort_values("YearMonth")
 
-try:
-    # ✅ Open the WPI page
-    url = "https://esankhyiki.mospi.gov.in/macroindicators?product=wpi"
-    driver.get(url)
+        latest = filtered.iloc[-1]
+        latest_value = latest["IndexValue"]
 
-    print("🔄 Loading page...")
-    time.sleep(5)  # wait for JS to load table
+        if len(filtered) >= 2:
+            prev_value = filtered.iloc[-2]["IndexValue"]
+            trend = "Uptrend" if latest_value > prev_value else "Downtrend"
+        else:
+            trend = "Insufficient data for trend"
 
-    # ✅ Parse with BeautifulSoup
-    soup = BeautifulSoup(driver.page_source, "html.parser")
+        return f"WPI for {item_name} ({latest['Month']} {latest['Year']}): {latest_value} | Trend: {trend}"
 
-    # Find the table (you may need to inspect and adjust class/id)
-    table = soup.find("table")
-    if table:
-        print("✅ Extracted Table:")
-        for row in table.find_all("tr"):
-            cells = [cell.text.strip() for cell in row.find_all(["td", "th"])]
-            if cells:
-                print(cells)
-    else:
-        print("❌ No table found. Check if page loads properly or change selector.")
+    except Exception as e:
+        return f"Error reading WPI data: {str(e)}"
 
-finally:
-    driver.quit()
+
+if __name__ == "__main__":
+    print(wpi_tool("Wheat"))
+    print(wpi_tool("Rajma"))
+    print(wpi_tool("Almonds"))

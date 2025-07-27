@@ -43,7 +43,7 @@ def text_to_speech_male_hindi(text):
     synthesis_input = texttospeech.SynthesisInput(text=text)
     uuid_ = uuid.uuid4()
     os.makedirs("../../../frontend/public/assets", exist_ok=True)
-    output_file = f"../../../frontend/public/assets/male_{uuid_}.mp3"
+    output_file = f"../../../frontend/public/assets/male_output.mp3"
 
     voice = texttospeech.VoiceSelectionParams(
         language_code="hi-IN",
@@ -59,7 +59,7 @@ def text_to_speech_male_hindi(text):
         out.write(response.audio_content)
 
     print(f"Audio content written to {output_file}")
-    return f"/public/assets/male_{uuid_}.mp3"
+    return f"/public/assets/male_output.mp3"
 
 
 # ---------- SPEECH TO TEXT FUNCTION ----------

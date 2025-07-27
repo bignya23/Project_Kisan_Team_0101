@@ -1,8 +1,12 @@
 import requests
 import json
 from datetime import datetime
+import os
+from dotenv import load_dotenv
 
-OPENWEATHER_API_KEY = "0b39c70be10e3a6f4329a2366e8d114d"
+load_dotenv()
+
+OPENWEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 
 def weather_tool(location: str):
     """
@@ -10,7 +14,6 @@ def weather_tool(location: str):
     """
 
     try:
-        # ✅ Step 1: Get coordinates if a city name is provided
         if "," not in location:
             geo_url = f"http://api.openweathermap.org/geo/1.0/direct?q={location}&limit=1&appid={OPENWEATHER_API_KEY}"
             geo_res = requests.get(geo_url).json()
@@ -21,14 +24,12 @@ def weather_tool(location: str):
         else:
             latitude, longitude = map(float, location.split(","))
 
-        # ✅ Step 2: Get forecast
         url = f"https://api.openweathermap.org/data/2.5/forecast?lat={latitude}&lon={longitude}&appid={OPENWEATHER_API_KEY}&units=metric"
         data = requests.get(url).json()
 
         if "list" not in data:
             return "Weather data unavailable."
 
-        # ✅ Step 3: Aggregate daily forecast
         daily_forecast = {}
         for entry in data["list"]:
             date = entry["dt_txt"].split(" ")[0]

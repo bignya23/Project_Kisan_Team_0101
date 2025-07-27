@@ -29,7 +29,7 @@ def fetch_mandi_data(state: str = TARGET_STATE):
             "filters[state]": state
         }
         print("ok3")
-        response = requests.get(url, params=params)
+        # response = requests.get(url, params=params)
 
         print("ok4")
 

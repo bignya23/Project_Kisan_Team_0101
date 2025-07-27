@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 def text_to_speech_female_hindi(text):
     """This function converts text to speech in female voice"""
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_AUTH_CREDENTIALS")
@@ -48,7 +47,7 @@ def text_to_speech_male_hindi(text : str):
     synthesis_input = texttospeech.SynthesisInput(text=text)
     uuid_ = uuid.uuid4()
     os.makedirs("../frontend/public/assets", exist_ok=True)
-    output_file=f"../frontend/public/assets/male_{uuid_}.mp3"
+    output_file=f"../frontend/public/assets/male_output.mp3"
     voice = texttospeech.VoiceSelectionParams(
         language_code="hi-IN",
         name="hi-IN-Chirp3-HD-Charon",
@@ -70,7 +69,7 @@ def text_to_speech_male_hindi(text : str):
 
 
     print(f"Audio content written to {output_file}")
-    return f"/public/assets/male_{uuid_}.mp3"
+    return f"/public/assets/male_output.mp3"
 
 
 if __name__ == "__main__":
@@ -78,7 +77,6 @@ if __name__ == "__main__":
     print(text_to_speech_male_hindi("""
 Aangan mera, galiyan yeh meri
 Sooni lage har din dopehri
-
 """))
     end = time.time()
     print(f"Time Taken{end-start}")
