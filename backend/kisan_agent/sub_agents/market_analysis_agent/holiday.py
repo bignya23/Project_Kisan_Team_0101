@@ -33,7 +33,7 @@ def get_holidays_list():
 
     # Format the output
     holidays = []
-    for ev in events:
+    for ev in events
         date = ev["start"].get("date") or ev["start"].get("dateTime")
         holidays.append({
             "name": ev.get("summary"),

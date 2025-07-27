@@ -21,51 +21,59 @@ const permissions = {
 };
 
 const PermissionRequest = ({ type, onNext, onSkip }) => {
-  const { selectedLanguage } = useAppStore();
+  const { selectedLanguage, setLocation } = useAppStore();
   const permission = permissions[type];
   const Icon = permission.icon;
 
   const handleAllow = async () => {
     try {
       if (type === 'notifications') {
-        // Request browser notification permission
         if ('Notification' in window) {
-          const permission = await Notification.requestPermission();
-          console.log('Notification permission:', permission);
+          const permissionStatus = await Notification.requestPermission();
+          console.log('Notification permission:', permissionStatus);
         }
-      } else if (type === 'location') {
-        // Request browser geolocation permission
+        onNext();
+      }
+
+      if (type === 'location') {
         if ('geolocation' in navigator) {
           navigator.geolocation.getCurrentPosition(
             (position) => {
-              console.log('Location permission granted:', position);
+              const coords = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+              };
+              console.log('Location granted:', coords);
+              setLocation(coords); // ✅ Save to Zustand store
+              onNext();
             },
             (error) => {
-              console.log('Location permission denied:', error);
+              console.error('Location denied:', error);
+              onNext();
             }
           );
+        } else {
+          console.warn('Geolocation not supported by browser');
+          onNext();
         }
       }
-      onNext();
     } catch (error) {
-      console.error('Permission request error:', error);
-      onNext(); // Continue anyway
+      console.error('Permission error:', error);
+      onNext(); // Proceed even if something fails
     }
   };
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="max-w-md w-full text-center">
-        <div className={`
-          w-40 h-40 ${permission.bgColor} rounded-full flex items-center justify-center mx-auto mb-8
-        `}>
+        <div className={`w-40 h-40 ${permission.bgColor} rounded-full flex items-center justify-center mx-auto mb-8`}>
           <Icon className={`h-20 w-20 ${permission.color}`} />
         </div>
-        
+
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           {getTranslation(selectedLanguage, permission.titleKey)}
         </h1>
-        
+
         <p className="text-lg text-gray-600 mb-12 leading-relaxed px-4">
           {getTranslation(selectedLanguage, permission.descriptionKey)}
         </p>
@@ -77,7 +85,7 @@ const PermissionRequest = ({ type, onNext, onSkip }) => {
           >
             {getTranslation(selectedLanguage, 'skip')}
           </button>
-          
+
           <button
             onClick={handleAllow}
             className="btn-primary px-8 py-3"

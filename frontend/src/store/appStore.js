@@ -9,14 +9,15 @@ const useAppStore = create(
       isAuthenticated: false,
       
       // App state
-      selectedLanguage: 'English',
+      selectedLanguage: 'en',
       selectedCrops: [],
       farmingType: '',
       onboardingCompleted: false, // Always starts as false for each session
       currentScreen: 'splash',
       loading: true,
       error: null,
-      
+      sessionId: null,
+      location: null,
       // UI state
       sidebarOpen: false,
       
@@ -30,7 +31,8 @@ const useAppStore = create(
       setLoading: (loading) => set({ loading }),
       setError: (error) => set({ error }),
       setSidebarOpen: (open) => set({ sidebarOpen: open }),
-      
+      setSessionId: (id) => set({ sessionId: id }),
+      setLocation: (location) => set({ location }),
       // Initialize app
       initializeApp: async () => {
         set({ loading: true });
@@ -65,6 +67,7 @@ const useAppStore = create(
         loading: false,
         error: null,
         sidebarOpen: false,
+        location: null,
       }),
     }),
     {

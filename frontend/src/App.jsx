@@ -7,7 +7,6 @@ import SplashScreen from './components/SplashScreen';
 import OnboardingFlow from './components/Onboarding/OnboardingFlow';
 
 import Home from "./pages/Home.jsx"
-import VoiceInput from './pages/Voicequery.jsx';
 
 function App() {
   const { loading, onboardingCompleted, initializeApp } = useAppStore();
@@ -30,7 +29,6 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/voice-input" element={<VoiceInput/>}/>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
