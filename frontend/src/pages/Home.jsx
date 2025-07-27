@@ -49,7 +49,7 @@ const Home = () => {
   // API Configuration
   const API_BASE_URL = window.location.hostname.includes('cloudworkstations.dev') 
     ? `https://${window.location.hostname.replace('5174-', '8000-')}`
-    : 'http://localhost:8000';
+    : 'https://adk-default-service-name-159735707573.us-central1.run.app/';
   const APP_NAME = 'kisan_agent';
   const USER_ID = 'u_123';
 
