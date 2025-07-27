@@ -9,7 +9,7 @@ load_dotenv()
 
 def text_to_speech_female_hindi(text):
     """This function converts text to speech in female voice"""
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIAL")
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_AUTH_CREDENTIALS")
     client = texttospeech.TextToSpeechClient()
 
     synthesis_input = texttospeech.SynthesisInput(text=text)
@@ -41,8 +41,8 @@ def text_to_speech_female_hindi(text):
 
 
 
-def text_to_speech_male_hindi(text):
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIAL")
+def text_to_speech_male_hindi(text : str):
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_AUTH_CREDENTIALS")
     client = texttospeech.TextToSpeechClient()
 
     synthesis_input = texttospeech.SynthesisInput(text=text)
@@ -73,11 +73,9 @@ def text_to_speech_male_hindi(text):
     return f"/public/assets/male_{uuid_}.mp3"
 
 
-
-
-if _name_ == "_main_":
+if __name__ == "__main__":
     start = time.time()
-    print(text_to_speech_female_hindi("""
+    print(text_to_speech_male_hindi("""
 Aangan mera, galiyan yeh meri
 Sooni lage har din dopehri
 

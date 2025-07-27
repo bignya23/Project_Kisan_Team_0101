@@ -10,7 +10,7 @@ load_dotenv()
 
 def text_to_speech_female_hindi(text):
     """Converts text to female Hindi voice and saves as MP3"""
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIAL")
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_AUTH_CREDENTIALs")
     client = texttospeech.TextToSpeechClient()
 
     synthesis_input = texttospeech.SynthesisInput(text=text)
@@ -37,7 +37,7 @@ def text_to_speech_female_hindi(text):
 
 def text_to_speech_male_hindi(text):
     """Converts text to male Hindi voice and saves as MP3"""
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIAL")
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_AUTH_CREDENTIALs")
     client = texttospeech.TextToSpeechClient()
 
     synthesis_input = texttospeech.SynthesisInput(text=text)
@@ -66,7 +66,7 @@ def text_to_speech_male_hindi(text):
 
 def speech_to_text_hindi(audio_file_path):
     """Converts Hindi speech (FLAC/WAV/LINEAR16) to text"""
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIAL")
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_AUTH_CREDENTIALs")
     client = speech.SpeechClient()
 
     with open(audio_file_path, "rb") as audio_file:
@@ -75,8 +75,8 @@ def speech_to_text_hindi(audio_file_path):
     audio = speech.RecognitionAudio(content=content)
 
     config = speech.RecognitionConfig(
-        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,  # or FLAC
-        sample_rate_hertz=16000,  # Make sure your audio matches this rate
+        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16, 
+        sample_rate_hertz=16000,  
         language_code="hi-IN"
     )
 

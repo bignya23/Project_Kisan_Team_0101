@@ -1,13 +1,12 @@
-
-
 import requests
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-os.environ["url"] = os.getenv("URL")
-os.environ["api_key"] = os.getenv("API")
+url=os.getenv("URL")
+
+api_key=os.getenv("API")
 
 # ---------------- CONFIG ----------------
 
@@ -16,10 +15,12 @@ limit = 100
 # ----------------------------------------
 
 def fetch_mandi_data(state: str = TARGET_STATE):
+    print("ok1")
     offset = 0
     all_records = []
 
     while True:
+        print("ok2")
         params = {
             "api-key": api_key,
             "format": "json",
@@ -27,8 +28,10 @@ def fetch_mandi_data(state: str = TARGET_STATE):
             "offset": offset,
             "filters[state]": state
         }
-
+        print("ok3")
         response = requests.get(url, params=params)
+
+        print("ok4")
 
         if response.status_code == 200:
             data = response.json()

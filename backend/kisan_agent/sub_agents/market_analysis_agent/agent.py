@@ -2,9 +2,11 @@ from datetime import datetime
 from google.adk.agents import Agent, SequentialAgent, ParallelAgent, LlmAgent
 from google.adk.tools import google_search
 from .holiday import get_holidays_list
+from .weather import weather_tool
 # from .mandi import fetch_mandi_data
 from dotenv import load_dotenv
 import os
+
 
 load_dotenv()
 
@@ -48,12 +50,13 @@ weather_agent = LlmAgent(
     description="Provides the 10-day weather forecast for a specific location.",
     instruction=(
         "You are a weather assistant. When given a location, "
-        "use the 'google_search' tool to find the 10-day weather forecast. "
+        "use the 'weather_tool' to get the 10-day forecast. "
         "Summarize temperature, rain chances, and extreme weather if any."
     ),
     tools=[google_search],
     output_key="weather_data"
 )
+
 
 analysis_agent = LlmAgent(
     name="analysis_agent",
@@ -83,7 +86,7 @@ main_final_agent = LlmAgent(
     model="gemini-2.5-pro",
     instruction=(
         "You are a combined assistant. This is the : NEWS : {news_data} Mandi and holildays : {final_data}, Weather : {weather_data}"
-        "Finally, combine all the information into a comprehensive response to  analyze trends, and provide a simple, actionable summary to guide selling decisions."
+        "Finally, combine all the information into a comprehensive response to  analyze trends, and provide a simple, actionable summary to guide selling decisions like upcoming trends of the prices and the reasons for it."
     ),
 )
 
