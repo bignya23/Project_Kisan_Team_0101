@@ -114,9 +114,11 @@ const Home = () => {
       );
       if (!response.ok) throw new Error(await response.text());
       return await response.json();
+      console.log(response);
     } catch (error) {
       return null;
     }
+    
   };
 
   const checkImageProvideRequest = (text) => {
@@ -269,7 +271,8 @@ const Home = () => {
         newMessage: {
           role: "user",
           parts: messageParts
-        }
+        },
+        streaming: false
       };
       const response = await fetch(`${API_BASE_URL}/run_sse`, {
         method: 'POST',
