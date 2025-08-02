@@ -271,9 +271,27 @@ const Home = () => {
         newMessage: {
           role: "user",
           parts: messageParts
-        }
+        },
+        streaming: false
       };
-      const response = await fetch(`${API_BASE_URL}/run`, {
+
+
+    //   curl -X POST -H "Authorization: Bearer $TOKEN" \
+    // $APP_URL/run_sse \
+    // -H "Content-Type: application/json" \
+    // -d '{
+    // "app_name": "capital_agent",
+    // "user_id": "user_123",
+    // "session_id": "session_abc",
+    // "new_message": {
+    //     "role": "user",
+    //     "parts": [{
+    //     "text": "What is the capital of Canada?"
+    //     }]
+    // },
+    // "streaming": false
+    // }'
+      const response = await fetch(`${API_BASE_URL}/run_sse`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -284,6 +302,7 @@ const Home = () => {
         body: JSON.stringify(payload)
       });
       if (!response.ok) throw new Error(await response.text());
+      console.log(response);
       const responseData = await response.json();
       let n = responseData.length - 1;
       let res = responseData[n].content.parts[0].text;
