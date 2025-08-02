@@ -271,7 +271,7 @@ const Home = () => {
           parts: messageParts
         }
       };
-      const response = await fetch(`${API_BASE_URL}/run`, {
+      const response = await fetch(`${API_BASE_URL}/run_sse`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
