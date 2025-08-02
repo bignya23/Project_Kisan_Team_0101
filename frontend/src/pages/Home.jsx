@@ -113,8 +113,8 @@ const Home = () => {
         }
       );
       if (!response.ok) throw new Error(await response.text());
-      return await response.json();
       console.log(response);
+      return await response.json();
     } catch (error) {
       return null;
     }
@@ -271,10 +271,9 @@ const Home = () => {
         newMessage: {
           role: "user",
           parts: messageParts
-        },
-        streaming: false
+        }
       };
-      const response = await fetch(`${API_BASE_URL}/run_sse`, {
+      const response = await fetch(`${API_BASE_URL}/run`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
