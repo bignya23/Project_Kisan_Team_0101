@@ -50,7 +50,7 @@ const Home = () => {
   const API_BASE_URL = window.location.hostname.includes('cloudworkstations.dev') 
     ? `https://${window.location.hostname.replace('5174-', '8000-')}`
     : 'https://capital-agent-159735707573.us-central1.run.app';
-  const APP_NAME = 'kisan_agent';
+  const APP_NAME = 'capital_agent';
   const USER_ID = 'u_123';
 
   // Initialize audio ref
