@@ -291,7 +291,7 @@ const Home = () => {
     // },
     // "streaming": false
     // }'
-      const response = await fetch(`${API_BASE_URL}/run_sse`, {
+      const response = await fetch(`${API_BASE_URL}/run`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
