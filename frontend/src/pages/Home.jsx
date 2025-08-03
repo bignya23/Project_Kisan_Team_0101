@@ -51,7 +51,7 @@ const Home = () => {
     ? `https://${window.location.hostname.replace('5174-', '8000-')}`
     : 'https://capital-agent-new-159735707573.us-central1.run.app';
   const APP_NAME = 'capital_agent';
-  const USER_ID = 'u_123';
+  const USER_ID = 'u_1234';
 
   // Initialize audio ref
   useEffect(() => {
@@ -100,8 +100,6 @@ const Home = () => {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
           },
-          mode: 'cors',
-          credentials: 'include',
           body: JSON.stringify({
             state: {
               conversationStarted: true,
@@ -271,8 +269,7 @@ const Home = () => {
         newMessage: {
           role: "user",
           parts: messageParts
-        },
-        streaming: false
+        }
       };
 
 
@@ -295,10 +292,7 @@ const Home = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
         },
-        mode: 'cors',
-        credentials: 'include',
         body: JSON.stringify(payload)
       });
       if (!response.ok) throw new Error(await response.text());
